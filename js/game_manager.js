@@ -38,6 +38,8 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
+  
+  this.startTilesValue = 2;
 
   // Reload the game from a previous game if present
   if (previousState) {
@@ -72,7 +74,7 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var value = Math.random() < 0.9 ? 2 : 4;
+    var value = Math.random() < 0.9 ? this.startTilesValue : 2*this.startTilesValue;
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
@@ -171,7 +173,24 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-          if (merged.value === 2048) self.won = true;
+          if (merged.value === 16){
+			  self.startTilesValue=3;
+			  var state=new Array(self.grid.size);
+			  for(var n=0;n<self.grid.size;n++){
+				for(var m=0;m<self.grid.size;m++){
+					self.grid.removeTile({x:n, y:m});
+				}
+			  }
+		  }
+          if (merged.value === 1536){
+			  self.startTilesValue=5;
+			  for(var n=0;n<self.grid.size;n++){
+				for(var m=0;m<self.grid.size;m++){
+					self.grid.removeTile({x:n, y:m});
+				}
+			  }
+		  }
+          if (merged.value === 5120) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
