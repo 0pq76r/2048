@@ -1,9 +1,18 @@
-function HTMLActuator() {
+function HTMLActuator(images) {
   this.tileContainer    = document.querySelector(".tile-container");
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
+  this.Image=[]
+  this.ImageSrc=[];
 
+	var i=0;
+	while(!!images.query.allimages[i++])
+	{
+		this.ImageSrc.push(images.query.allimages[i-1].url)
+	}
+
+  var self=this;
   this.score = 0;
 }
 
@@ -50,7 +59,7 @@ HTMLActuator.prototype.addTile = function (tile) {
   var self = this;
 
   var wrapper   = document.createElement("div");
-  var inner     = document.createElement("div");
+  var inner     = document.createElement("img");
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
   var positionClass = this.positionClass(position);
 
@@ -60,9 +69,18 @@ HTMLActuator.prototype.addTile = function (tile) {
   if (tile.value > 2048) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
+  
+  if(!self.Image[tile.value])
+  {
+	var i=0;
+	while((self.Image[tile.value]=self.ImageSrc[i++])==null);
+	self.ImageSrc[i-1]=null;
+  }
 
   inner.classList.add("tile-inner");
-  inner.textContent = tile.value;
+  inner.src = self.Image[tile.value];
+  inner.alt = tile.value;
+  inner.width = "auto";
 
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
