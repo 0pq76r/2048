@@ -173,7 +173,7 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-          if (merged.value === 16){
+          if (merged.value === 32){
 			  self.startTilesValue=3;
 			  var state=new Array(self.grid.size);
 			  for(var n=0;n<self.grid.size;n++){
@@ -182,7 +182,7 @@ GameManager.prototype.move = function (direction) {
 				}
 			  }
 		  }
-          if (merged.value === 1536){
+          if (merged.value === 3072){
 			  self.startTilesValue=5;
 			  for(var n=0;n<self.grid.size;n++){
 				for(var m=0;m<self.grid.size;m++){
@@ -190,7 +190,7 @@ GameManager.prototype.move = function (direction) {
 				}
 			  }
 		  }
-          if (merged.value === 5120) self.won = true;
+          if (merged.value === 10240) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
