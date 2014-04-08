@@ -6,11 +6,28 @@ function HTMLActuator(images) {
   this.Image=[]
   this.ImageSrc=[];
 
-	var i=0;
-	while(!!images.query.allimages[i++])
+  if(!!images[1].photos ){
+  	var i=0;
+	while(!!images[1].photos.photo[i++] && i<=7)
 	{
-		this.ImageSrc.push(images.query.allimages[i-1].url)
+		this.ImageSrc.push(src = "http://farm"+ images[1].photos.photo[i-1].farm +".static.flickr.com/"+ images[1].photos.photo[i-1].server +"/"+ images[1].photos.photo[i-1].id +"_"+ images[1].photos.photo[i-1].secret +"_m.jpg");
 	}
+  }
+
+  if(!!images[0].data ){
+  	var i=0;
+	while(!!images[0].data[i++])
+	{
+		this.ImageSrc.push(images[0].data[i-1].images.original.url);
+	}
+  }
+
+  if(!!images[2].query) {
+	var i=0;
+	while(!!images[2].query.allimages[i++]){
+		this.ImageSrc.push(images[2].query.allimages[i-1].url)
+	}
+  }
 
   var self=this;
   this.score = 0;
