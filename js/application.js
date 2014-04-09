@@ -36,7 +36,7 @@ imgsrc.src="http://commons.wikimedia.org/w/api.php?action=query&format=json&list
 document.body.appendChild(imgsrc);
 
 imgsrc=document.createElement("script");
-imgsrc.src="https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=801f7533cdac5c39f247e7afde7e0164&tags="+str+"&format=json";
+imgsrc.src="https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=287810755d780a427e5babb046a4c2a9&tags="+str+"&format=json";
 document.body.appendChild(imgsrc);
 
 var invocation = new XMLHttpRequest();
