@@ -9,9 +9,17 @@ function HTMLActuator(images) {
   this.ImageSrc=[];
   this.score = 0;
 
+  if(!!images[3].response ){
+  	var i=0;
+	while(!!images[3].response[++i])
+	{
+		if(!!images[3].response[i].src_big) this.ImageSrc.push(images[3].response[i].src_big);
+	}
+  }
+
   if(!!images[1].photos ){
   	var i=0;
-	while(!!images[1].photos.photo[i++] && i<=7)
+	while(!!images[1].photos.photo[i++] && i<=2)
 	{
 		this.ImageSrc.push(src = "http://farm"+ images[1].photos.photo[i-1].farm +".static.flickr.com/"+ images[1].photos.photo[i-1].server +"/"+ images[1].photos.photo[i-1].id +"_"+ images[1].photos.photo[i-1].secret +"_m.jpg");
 	}

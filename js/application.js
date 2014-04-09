@@ -7,23 +7,30 @@ function jsonGiphyApi()
 	if(this.readyState==4 && this.status==200) {
 		img[0]=JSON.parse(self.responseText);
 	}
-	if(!!img[0]&&!!img[1]&&!!img[2]) start();
+	start();
 }
 
 function jsonFlickrApi(images)
 {
 	img[1]=images;
-	if(!!img[0]&&!!img[1]&&!!img[2]) start();
+	start();
+}
+
+function jsonVkApi(images)
+{
+	img[3]=images;
+	start();
 }
 
 function RandomImages(images)
 {
 	img[2]=images;
-	if(!!img[0]&&!!img[1]&&!!img[2]) start();
+	start();
 }
 
 function start()
 {
+	if(!(!!img[0]&&!!img[1]&&!!img[2]&&!!img[3]))return;
 	window.requestAnimationFrame(function () {
 		new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, img);
 	});
@@ -37,6 +44,10 @@ document.body.appendChild(imgsrc);
 
 imgsrc=document.createElement("script");
 imgsrc.src="https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=287810755d780a427e5babb046a4c2a9&tags="+str+"&format=json";
+document.body.appendChild(imgsrc);
+
+imgsrc=document.createElement("script");
+imgsrc.src="http://api.vk.com/method/photos.search?q="+str+"&count=5&callback=jsonVkApi";
 document.body.appendChild(imgsrc);
 
 var invocation = new XMLHttpRequest();
